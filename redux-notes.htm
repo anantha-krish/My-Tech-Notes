@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redux Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta keywords="">
+<style>
+-ms-text-size-adjust: 100%;
+-webkit-text-size-adjust: 100%;
+color: #24292e;
+font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
+  sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+font-size: 16px;
+line-height: 1.6;
+word-wrap: break-word;
+
+.dark, .solarizedDark {
+  color: #FFF;
+}
+
+details {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+a {
+  background-color: transparent;
+}
+
+a:active,
+a:hover {
+  outline-width: 0;
+}
+
+[type='checkbox'] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+strong {
+  font-weight: 600;
+}
+
+hr:before {
+  content: '';
+  display: table;
+}
+
+hr:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+td,
+th {
+  padding: 0;
+}
+
+details summary {
+  cursor: pointer;
+}
+
+p {
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+ol ol,
+ul ol {
+  list-style-type: lower-roman;
+}
+
+ol ol ol,
+ol ul ol,
+ul ol ol,
+ul ul ol {
+  list-style-type: lower-alpha;
+}
+
+dd {
+  margin-left: 0;
+}
+
+code,
+pre {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace;
+  font-size: 12px;
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+&:before {
+  content: '';
+  display: table;
+}
+
+&:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+> :first-child {
+  margin-top: 0 !important;
+}
+
+> :last-child {
+  margin-bottom: 0 !important;
+}
+
+a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+blockquote {
+  margin: 0;
+  border-left: 0.25em solid #dfe2e5;
+  color: #6a737d;
+  padding: 0 1em;
+}
+
+blockquote,
+dl,
+ol,
+p,
+pre,
+table,
+ul {
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+blockquote > :first-child {
+  margin-top: 0;
+}
+
+blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  margin-top: 24px;
+}
+
+h1,
+h2 {
+  border-bottom: 1px solid #eaecef;
+  padding-bottom: 0.3em;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+h5 {
+  font-size: 0.875em;
+}
+
+h6 {
+  color: #6a737d;
+  font-size: 0.85em;
+}
+
+ol,
+ul {
+  padding-left: 2em;
+}
+
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+li {
+  word-wrap: break-all;
+}
+
+li > p {
+  margin-top: 16px;
+}
+
+li + li {
+  margin-top: 0.25em;
+}
+
+dl {
+  padding: 0;
+}
+
+dl dt {
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+  margin-top: 16px;
+  padding: 0;
+}
+
+dl dd {
+  margin-bottom: 16px;
+  padding: 0 16px;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  overflow: auto;
+  width: 100%;
+}
+
+table th {
+  font-weight: 600;
+}
+
+table td,
+table th {
+  border: 1px solid #dfe2e5;
+  padding: 6px 13px;
+}
+
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+img {
+  border-style: none;
+  background-color: #fff;
+  box-sizing: content-box;
+  max-width: 100%;
+}
+
+img[align='right'] {
+  padding-left: 20px;
+}
+
+img[align='left'] {
+  padding-right: 20px;
+}
+
+code {
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+  font-size: 85%;
+  margin: 0;
+  padding: 0.2em 0.4em;
+}
+
+p code,
+li code
+{
+  padding: 2px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+pre {
+  word-wrap: normal;
+}
+
+pre > code {
+  background: transparent;
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  word-break: normal;
+}
+
+.highlight {
+  margin-bottom: 16px;
+}
+
+.highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.highlight pre,
+pre {
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  font-size: 85%;
+  line-height: 1.45;
+  overflow: auto;
+  padding: 16px;
+}
+
+pre code {
+  background-color: transparent;
+  border: 0;
+  display: inline;
+  line-height: inherit;
+  margin: 0;
+  max-width: auto;
+  overflow: visible;
+  padding: 0;
+  word-wrap: normal;
+}
+
+kbd {
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-bottom-color: #c6cbd1;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #c6cbd1;
+  color: #444d56;
+  display: inline-block;
+  font: 11px SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace;
+  line-height: 10px;
+  padding: 3px 5px;
+  vertical-align: middle;
+}
+
+:checked + .radio-label {
+  border-color: #0366d6;
+  position: relative;
+  z-index: 1;
+}
+
+.task-list-item {
+  list-style-type: none;
+}
+
+.task-list-item + .task-list-item {
+  margin-top: 3px;
+}
+
+.task-list-item input {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+
+hr {
+  box-sizing: content-box;
+  background: transparent;
+  overflow: hidden;
+  background-color: #e1e4e8;
+  border: 0;
+  height: 0.25em;
+  margin: 24px 0;
+  padding: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.dark p code,
+.dark li code
+{
+  background-color: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+  color: #03C588;
+}
+.auto p code,
+.auto li code
+{
+  background-color: #F9F9F9;
+  border-color: rgba(0,0,0,0.26);
+  color: #03C588;
+}
+.light p code,
+.light li code
+{
+  background-color: #F9F9F9;
+  border-color: rgba(0,0,0,0.26);
+  color: #03C588;
+}
+.sepia p code,
+.sepia li code
+{
+  background-color: #efe8d6;
+  border-color: rgba(0,0,0,0.26);
+  color: #F77942;
+}
+.solarizedDark p code,
+.solarizedDark li code
+{
+  background-color: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+  color: #36abe3;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+</head>
+<body>
+<h1>Basic Redux Notes</h1>
+<h4>Author: Anantha Krishnan M</h4>
+<p>Following are the notes for redux using Nodejs</p>
+<h2>Start npm project</h2>
+<pre class="cm-s-material-darker CodeMirror"><code>npm init
+</code></pre>
+<h2>Install redux</h2>
+<pre class="cm-s-material-darker CodeMirror"><code>npm add redux
+</code></pre>
+<h2>Three concepts of redux</h2>
+<ol>
+<li>Store : holds the state of ur action</li>
+<li>Action : describe the change in state of app</li>
+<li>Reducers: carries out state transition depending on action</li>
+</ol>
+<h2>Redux pattern</h2>
+<p>The application can't update state directly.</p>
+<ol>
+<li>You have to dispatch an action (action contains the type)</li>
+<li>The action will be processed by reducer to update store.</li>
+<li>Update in the state is reflected to app as its subscribed.
+<img src="image-keee20c5.png"></li>
+</ol>
+<h2>Actions</h2>
+<ul>
+<li>json must contain a type key (field), and any no of fields u can add</li>
+</ul>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-keyword">const</span><span> </span><span class="cm-def">BUY_CAKE</span><span class="cm-operator">=</span><span class="cm-string">'BUY_CAKE'</span><span>
+</span><span class="cm-comment">//function is called action creator</span><span>
+</span><span class="cm-keyword">function</span><span> </span><span class="cm-def">buyCake</span><span>(</span><span>)</span><span>
+</span><span>{</span><span>
+</span><span>  </span><span class="cm-keyword">return</span><span> </span><span>{</span><span>
+</span><span>      </span><span class="cm-property">type</span><span>:</span><span class="cm-variable">BUY_CAKE</span><span>,</span><span>
+</span><span>      </span><span class="cm-property">info</span><span>:</span><span class="cm-string">'First action for redux'</span><span>
+</span><span>  </span><span>}</span><span>
+</span><span>}</span><span>
+</span></code></pre>
+<h2>Reducers</h2>
+<p>Reducer accepts the prevState &#x26; action -> return state variable based on action </p>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-keyword">const</span><span> </span><span class="cm-def">initialState</span><span> </span><span class="cm-operator">=</span><span>
+</span><span>{</span><span>
+</span><span>    </span><span class="cm-property">numberOfCakes</span><span>:</span><span class="cm-number">10</span><span>
+</span><span>}</span><span>
+</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">reducers</span><span> </span><span class="cm-operator">=</span><span> </span><span>(</span><span> </span><span class="cm-def">state</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">initialState</span><span>,</span><span> </span><span class="cm-def">action</span><span>)</span><span class="cm-operator">=></span><span>{</span><span>
+</span><span>  </span><span class="cm-keyword">switch</span><span>(</span><span class="cm-variable-2">action</span><span>.</span><span class="cm-property">type</span><span>)</span><span>{</span><span>
+</span><span> </span><span class="cm-comment">//returning a new state object not mutating existing one</span><span>
+</span><span>  </span><span class="cm-keyword">case</span><span> </span><span class="cm-variable">BUY_CAKE</span><span>:</span><span class="cm-keyword">return</span><span>{</span><span>
+</span><span>     </span><span class="cm-comment">//convention to make the copy of state &#x26; then modify the key </span><span>
+</span><span>      </span><span class="cm-meta">...</span><span class="cm-variable-2">state</span><span>,</span><span>
+</span><span>      </span><span class="cm-property">numberOfCakes</span><span>:</span><span> </span><span class="cm-variable-2">state</span><span>.</span><span class="cm-property">numberOfCakes</span><span> </span><span class="cm-operator">-</span><span> </span><span class="cm-number">1</span><span>
+</span><span>  </span><span>}</span><span>
+</span><span>  </span><span class="cm-keyword">default</span><span>:</span><span> </span><span class="cm-keyword">return</span><span> </span><span class="cm-variable-2">state</span><span>  </span><span>
+</span><span>}</span><span>
+</span><span>}</span><span>
+</span></code></pre>
+<h2>Store</h2>
+<ul>
+<li>step 1:
+Import redux library. Below is example for nodejs app</li>
+</ul>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-keyword">const</span><span> </span><span class="cm-def">redux</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">require</span><span>(</span><span class="cm-string">'redux'</span><span>)</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">createStore</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">redux</span><span>.</span><span class="cm-property">createStore</span><span>
+</span></code></pre>
+<ul>
+<li>step 2:
+create a store</li>
+</ul>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-keyword">const</span><span> </span><span class="cm-def">store</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">createStore</span><span>(</span><span class="cm-variable">reducers</span><span>)</span><span>
+</span></code></pre>
+<ul>
+<li>step 3: access the state using get state</li>
+</ul>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-variable">console</span><span>.</span><span class="cm-property">log</span><span>(</span><span class="cm-string">'Initial State'</span><span>,</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">getState</span><span>(</span><span>)</span><span>)</span><span>
+</span></code></pre>
+<ul>
+<li>step 4: subscribe the app to the store </li>
+</ul>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-keyword">const</span><span> </span><span class="cm-def">unsubscribe</span><span> </span><span class="cm-operator">=</span><span> </span><span>
+</span><span>    </span><span class="cm-variable">store</span><span>.</span><span class="cm-property">subscribe</span><span>(</span><span> </span><span>(</span><span>)</span><span class="cm-operator">=></span><span> </span><span class="cm-variable">console</span><span>.</span><span class="cm-property">log</span><span>(</span><span class="cm-string">'update state'</span><span>,</span><span> </span><span class="cm-variable">store</span><span>.</span><span class="cm-property">getState</span><span>(</span><span>)</span><span> </span><span>)</span><span>)</span><span>
+</span></code></pre>
+<ul>
+<li>step 5: dispatch actions to the store</li>
+</ul>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyCake</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyCake</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyCake</span><span>(</span><span>)</span><span>)</span><span>
+</span></code></pre>
+<ul>
+<li>step 6: unsubscribe the app</li>
+</ul>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-comment">//unsubscribe is variable declared in step 4</span><span>
+</span><span class="cm-variable">unsubscribe</span><span>(</span><span>)</span><span>
+</span></code></pre>
+<h3>OUTPUT</h3>
+<pre class="cm-s-material-darker CodeMirror"><code>PS D:\ReactProjects\redux-demo> node index.js
+Initial State { numberOfCakes: 10 }
+update state { numberOfCakes: 9 }
+update state { numberOfCakes: 8 }
+update state { numberOfCakes: 7 }
+</code></pre>
+<h2>Combine Reducers</h2>
+<p>Step1: Create multiple initial states</p>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-keyword">const</span><span> </span><span class="cm-def">initialCakeState</span><span> </span><span class="cm-operator">=</span><span>
+</span><span>{</span><span>
+</span><span>    </span><span class="cm-property">numberOfCakes</span><span>:</span><span class="cm-number">10</span><span>
+</span><span>}</span><span>
+</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">initialIceCreamState</span><span> </span><span class="cm-operator">=</span><span>
+</span><span>{</span><span>
+</span><span>    </span><span class="cm-property">numberOfIcecreams</span><span>:</span><span class="cm-number">20</span><span>
+</span><span>}</span><span>
+</span></code></pre>
+<p>Step2: Create different reducers accepting different initial state</p>
+<p>Step3: use combineReducer</p>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-comment">//import stmnt</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">combineReducers</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">redux</span><span>.</span><span class="cm-property">combineReducers</span><span>
+</span><span>
+</span><span class="cm-comment">//implementation</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">rootReducer</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">combineReducers</span><span>(</span><span>{</span><span>
+</span><span>  </span><span class="cm-comment">//define key pair</span><span>
+</span><span>  </span><span class="cm-property">cake</span><span>:</span><span> </span><span class="cm-variable">cakeReducers</span><span>,</span><span>
+</span><span>  </span><span class="cm-property">iceCream</span><span>:</span><span> </span><span class="cm-variable">iceCreamReducers</span><span> </span><span>
+</span><span>}</span><span>)</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">store</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">createStore</span><span>(</span><span class="cm-variable">rootReducer</span><span>)</span><span>
+</span></code></pre>
+<p>//sample code</p>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-variable">console</span><span>.</span><span class="cm-property">log</span><span>(</span><span class="cm-string">'Initial State'</span><span>,</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">getState</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">unsubscribe</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">store</span><span>.</span><span class="cm-property">subscribe</span><span>(</span><span>
+</span><span>    </span><span>(</span><span>)</span><span class="cm-operator">=></span><span class="cm-variable">console</span><span>.</span><span class="cm-property">log</span><span>(</span><span class="cm-string">'update state'</span><span>,</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">getState</span><span>(</span><span>)</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyCake</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyCake</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyCake</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-comment">//calling second action</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyIceCream</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyIceCream</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">unsubscribe</span><span>(</span><span>)</span><span>
+</span></code></pre>
+<p>//output</p>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-variable">PS</span><span> </span><span class="cm-variable">D</span><span>:</span><span>\</span><span class="cm-variable">ReactProjects</span><span>\</span><span class="cm-variable">redux</span><span class="cm-operator">-</span><span class="cm-variable">demo</span><span class="cm-operator">></span><span> </span><span class="cm-variable">node</span><span> </span><span class="cm-variable">index</span><span>.</span><span class="cm-property">js</span><span>
+</span><span class="cm-variable">Initial</span><span> </span><span class="cm-variable">State</span><span> </span><span>{</span><span> </span><span class="cm-variable">cake</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfCakes</span><span>:</span><span> </span><span class="cm-number">10</span><span> </span><span>}</span><span>,</span><span> </span><span class="cm-variable">iceCream</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfIcecreams</span><span>:</span><span> </span><span class="cm-number">20</span><span> </span><span>}</span><span> </span><span>}</span><span>
+</span><span class="cm-variable">update</span><span> </span><span class="cm-variable">state</span><span> </span><span>{</span><span> </span><span class="cm-variable">cake</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfCakes</span><span>:</span><span> </span><span class="cm-number">9</span><span> </span><span>}</span><span>,</span><span> </span><span class="cm-variable">iceCream</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfIcecreams</span><span>:</span><span> </span><span class="cm-number">20</span><span> </span><span>}</span><span> </span><span>}</span><span>  </span><span>
+</span><span class="cm-variable">update</span><span> </span><span class="cm-variable">state</span><span> </span><span>{</span><span> </span><span class="cm-variable">cake</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfCakes</span><span>:</span><span> </span><span class="cm-number">8</span><span> </span><span>}</span><span>,</span><span> </span><span class="cm-variable">iceCream</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfIcecreams</span><span>:</span><span> </span><span class="cm-number">20</span><span> </span><span>}</span><span> </span><span>}</span><span>  </span><span>
+</span><span class="cm-variable">update</span><span> </span><span class="cm-variable">state</span><span> </span><span>{</span><span> </span><span class="cm-variable">cake</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfCakes</span><span>:</span><span> </span><span class="cm-number">7</span><span> </span><span>}</span><span>,</span><span> </span><span class="cm-variable">iceCream</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfIcecreams</span><span>:</span><span> </span><span class="cm-number">20</span><span> </span><span>}</span><span> </span><span>}</span><span>
+</span><span class="cm-variable">update</span><span> </span><span class="cm-variable">state</span><span> </span><span>{</span><span> </span><span class="cm-variable">cake</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfCakes</span><span>:</span><span> </span><span class="cm-number">7</span><span> </span><span>}</span><span>,</span><span> </span><span class="cm-variable">iceCream</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfIcecreams</span><span>:</span><span> </span><span class="cm-number">19</span><span> </span><span>}</span><span> </span><span>}</span><span>
+</span><span class="cm-variable">update</span><span> </span><span class="cm-variable">state</span><span> </span><span>{</span><span> </span><span class="cm-variable">cake</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfCakes</span><span>:</span><span> </span><span class="cm-number">7</span><span> </span><span>}</span><span>,</span><span> </span><span class="cm-variable">iceCream</span><span>:</span><span> </span><span>{</span><span> </span><span class="cm-variable">numberOfIcecreams</span><span>:</span><span> </span><span class="cm-number">18</span><span> </span><span>}</span><span> </span><span>}</span><span>
+</span></code></pre>
+<h2>Using Middlewares in Redux</h2>
+<p>Example: redux-logger</p>
+<ol>
+<li>Install Redux-logger</li>
+</ol>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-variable">npm</span><span> </span><span class="cm-variable">add</span><span> </span><span class="cm-variable">redux</span><span class="cm-operator">-</span><span class="cm-variable">logger</span><span>
+</span></code></pre>
+<ol>
+<li>Import Statements</li>
+</ol>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-keyword">const</span><span> </span><span class="cm-def">reduxLogger</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">require</span><span>(</span><span class="cm-string">'redux-logger'</span><span>)</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">logger</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">reduxLogger</span><span>.</span><span class="cm-property">createLogger</span><span>(</span><span>)</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">applyMiddleWare</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">redux</span><span>.</span><span class="cm-property">applyMiddleware</span><span>
+</span></code></pre>
+<ol>
+<li>modify the code </li>
+</ol>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-comment">//use applyMiddleware in store</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">store</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">createStore</span><span>(</span><span class="cm-variable">rootReducer</span><span>,</span><span class="cm-variable">applyMiddleWare</span><span>(</span><span class="cm-variable">logger</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">console</span><span>.</span><span class="cm-property">log</span><span>(</span><span class="cm-string">'Initial State'</span><span>,</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">getState</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">unsubscribe</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">store</span><span>.</span><span class="cm-property">subscribe</span><span>(</span><span>(</span><span>)</span><span class="cm-operator">=></span><span>{</span><span>}</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyCake</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyCake</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyCake</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyIceCream</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">buyIceCream</span><span>(</span><span>)</span><span>)</span><span>
+</span><span class="cm-variable">unsubscribe</span><span>(</span><span>)</span><span>
+</span></code></pre>
+<p>\output</p>
+<pre class="cm-s-material-darker CodeMirror"><code>PS D:\ReactProjects\redux-demo> node index.js
+Initial State { cake: { numberOfCakes: 10 }, iceCream: { numberOfIcecreams: 20 } }
+ action BUY_CAKE @ 16:12:09.589
+   prev state { cake: { numberOfCakes: 10 }, iceCream: { numberOfIcecreams: 20 } }
+   action     { type: 'BUY_CAKE', info: 'First action for redux' }
+   next state { cake: { numberOfCakes: 9 }, iceCream: { numberOfIcecreams: 20 } }
+ action BUY_CAKE @ 16:12:09.614
+   prev state { cake: { numberOfCakes: 9 }, iceCream: { numberOfIcecreams: 20 } }
+   action     { type: 'BUY_CAKE', info: 'First action for redux' }
+   next state { cake: { numberOfCakes: 8 }, iceCream: { numberOfIcecreams: 20 } }
+ action BUY_CAKE @ 16:12:09.619
+   prev state { cake: { numberOfCakes: 8 }, iceCream: { numberOfIcecreams: 20 } }
+   action     { type: 'BUY_CAKE', info: 'First action for redux' }
+   next state { cake: { numberOfCakes: 7 }, iceCream: { numberOfIcecreams: 20 } }
+ action BUY_ICECREAM @ 16:12:09.624
+   prev state { cake: { numberOfCakes: 7 }, iceCream: { numberOfIcecreams: 20 } }
+   action     { type: 'BUY_ICECREAM', info: 'Second action for redux' }
+   next state { cake: { numberOfCakes: 7 }, iceCream: { numberOfIcecreams: 19 } }
+ action BUY_ICECREAM @ 16:12:09.655
+   prev state { cake: { numberOfCakes: 7 }, iceCream: { numberOfIcecreams: 19 } }
+   action     { type: 'BUY_ICECREAM', info: 'Second action for redux' }
+   next state { cake: { numberOfCakes: 7 }, iceCream: { numberOfIcecreams: 18 } }
+</code></pre>
+<h2>Setting up for async calls</h2>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-keyword">const</span><span> </span><span class="cm-def">redux</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">require</span><span>(</span><span class="cm-string">'redux'</span><span>)</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">createStore</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">redux</span><span>.</span><span class="cm-property">createStore</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">applyMiddleWare</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">redux</span><span>.</span><span class="cm-property">applyMiddleware</span><span>
+</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">initialState</span><span> </span><span class="cm-operator">=</span><span>{</span><span>
+</span><span>    </span><span class="cm-property">loading</span><span>:</span><span class="cm-atom">true</span><span>,</span><span>
+</span><span>    </span><span class="cm-property">users</span><span>:</span><span>[</span><span>]</span><span>,</span><span>
+</span><span>    </span><span class="cm-property">errors</span><span>:</span><span class="cm-string">''</span><span>
+</span><span>}</span><span>
+</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">FETCH_USERS_LIST</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-string">'FETCH_USERS_LIST'</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">FETCH_USERS_SUCCESS</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-string">'FETCH_USERS_SUCCESS'</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">FETCH_USERS_FAILURE</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-string">'FETCH_USERS_FAILURE'</span><span>
+</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">fetchUserList</span><span> </span><span class="cm-operator">=</span><span> </span><span>(</span><span>)</span><span> </span><span class="cm-operator">=></span><span>{</span><span>
+</span><span>    </span><span class="cm-keyword">return</span><span> </span><span>{</span><span>
+</span><span>       </span><span class="cm-property">type</span><span>:</span><span> </span><span class="cm-variable">FETCH_USERS_LIST</span><span>
+</span><span>    </span><span>}</span><span>
+</span><span>}</span><span>
+</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">fetchUserSuccess</span><span> </span><span class="cm-operator">=</span><span> </span><span>(</span><span class="cm-def">users</span><span>)</span><span> </span><span class="cm-operator">=></span><span>{</span><span>
+</span><span>    </span><span class="cm-keyword">return</span><span> </span><span>{</span><span>
+</span><span>      </span><span class="cm-property">type</span><span>:</span><span> </span><span class="cm-variable">FETCH_USERS_SUCCESS</span><span>,</span><span>
+</span><span>      </span><span class="cm-property">payload</span><span>:</span><span> </span><span class="cm-variable-2">users</span><span>
+</span><span>    </span><span>}</span><span>
+</span><span>}</span><span>
+</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">fetchUserFailure</span><span> </span><span class="cm-operator">=</span><span> </span><span>(</span><span class="cm-def">error</span><span>)</span><span> </span><span class="cm-operator">=></span><span>{</span><span>
+</span><span>    </span><span class="cm-keyword">return</span><span> </span><span>{</span><span>
+</span><span>      </span><span class="cm-property">type</span><span>:</span><span> </span><span class="cm-variable">FETCH_USERS_FAILURE</span><span>,</span><span>
+</span><span>      </span><span class="cm-property">payload</span><span>:</span><span> </span><span class="cm-variable-2">error</span><span>
+</span><span>    </span><span>}</span><span>
+</span><span>}</span><span>
+</span><span>
+</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">reducers</span><span> </span><span class="cm-operator">=</span><span> </span><span>(</span><span class="cm-def">state</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">initialState</span><span>,</span><span class="cm-def">action</span><span>)</span><span> </span><span class="cm-operator">=></span><span>{</span><span>
+</span><span>    </span><span class="cm-keyword">switch</span><span> </span><span>(</span><span class="cm-variable-2">action</span><span>.</span><span class="cm-property">type</span><span>)</span><span>
+</span><span>    </span><span>{</span><span>
+</span><span>    </span><span class="cm-keyword">case</span><span> </span><span class="cm-variable">FETCH_USERS_LIST</span><span>:</span><span>
+</span><span>    </span><span class="cm-keyword">return</span><span>{</span><span>
+</span><span>        </span><span class="cm-meta">...</span><span class="cm-variable-2">state</span><span>,</span><span>
+</span><span>        </span><span class="cm-property">loading</span><span>:</span><span class="cm-atom">true</span><span>,</span><span>
+</span><span>    </span><span>}</span><span> </span><span>
+</span><span>    </span><span class="cm-keyword">case</span><span> </span><span class="cm-variable">FETCH_USERS_SUCCESS</span><span>:</span><span>
+</span><span>        </span><span class="cm-keyword">return</span><span>{</span><span>
+</span><span>            </span><span class="cm-meta">...</span><span class="cm-variable-2">state</span><span>,</span><span>
+</span><span>            </span><span class="cm-property">loading</span><span>:</span><span class="cm-atom">false</span><span>,</span><span>
+</span><span>            </span><span class="cm-property">users</span><span>:</span><span> </span><span class="cm-variable-2">action</span><span>.</span><span class="cm-property">payload</span><span>
+</span><span>        </span><span>}</span><span> </span><span>
+</span><span>
+</span><span>        </span><span class="cm-keyword">case</span><span> </span><span class="cm-variable">FETCH_USERS_FAILURE</span><span>:</span><span>
+</span><span>            </span><span class="cm-keyword">return</span><span>{</span><span>
+</span><span>                </span><span class="cm-meta">...</span><span class="cm-variable-2">state</span><span>,</span><span>
+</span><span>                </span><span class="cm-property">loading</span><span>:</span><span class="cm-atom">false</span><span>,</span><span>
+</span><span>                </span><span class="cm-property">error</span><span>:</span><span> </span><span class="cm-variable-2">action</span><span>.</span><span class="cm-property">payload</span><span>
+</span><span>            </span><span>}</span><span>    </span><span>
+</span><span>
+</span><span>        </span><span class="cm-keyword">default</span><span>:</span><span>
+</span><span>        </span><span class="cm-keyword">return</span><span> </span><span class="cm-variable-2">state</span><span>
+</span><span>   </span><span>}</span><span>
+</span><span>
+</span><span>}</span><span>
+</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">store</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">createStore</span><span>(</span><span class="cm-variable">reducers</span><span>)</span><span>;</span><span>
+</span></code></pre>
+<h2>API call &#x26; Redux Thunk</h2>
+<p>Step1 : add axios &#x26; thunk</p>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-variable">npm</span><span> </span><span class="cm-variable">add</span><span> </span><span class="cm-variable">axios</span><span> </span><span class="cm-variable">redux</span><span class="cm-operator">-</span><span class="cm-variable">thunk</span><span>
+</span></code></pre>
+<p>Step2 : Import the libraries</p>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-keyword">const</span><span> </span><span class="cm-def">thunkMiddleWare</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">require</span><span>(</span><span class="cm-string">'redux-thunk'</span><span>)</span><span>.</span><span class="cm-property">default</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">axios</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">require</span><span>(</span><span class="cm-string">'axios'</span><span>)</span><span>
+</span></code></pre>
+<p>Step3 : Add below code</p>
+<pre class="cm-s-material-darker CodeMirror language-js"><code class="language-js"><span class="cm-comment">//action creater with thunk middleware support</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">fetchUsers</span><span class="cm-operator">=</span><span>(</span><span>)</span><span> </span><span class="cm-operator">=></span><span>{</span><span>
+</span><span>    </span><span class="cm-comment">// bcoz of thunk middleware it expects a function not a json</span><span>
+</span><span>    </span><span class="cm-keyword">return</span><span> </span><span class="cm-keyword">function</span><span>(</span><span class="cm-def">dispatch</span><span>)</span><span>  </span><span class="cm-comment">// argument is dispatch</span><span>
+</span><span>    </span><span>
+</span><span>    </span><span>{</span><span>    </span><span class="cm-comment">// set the initial Loading state </span><span>
+</span><span>         </span><span class="cm-variable-2">dispatch</span><span>(</span><span class="cm-variable">fetchUserList</span><span>(</span><span>)</span><span>)</span><span>
+</span><span>          </span><span class="cm-comment">// fetch dummy data from json placeholder</span><span>
+</span><span>         </span><span class="cm-variable">axios</span><span>.</span><span class="cm-property">get</span><span>(</span><span class="cm-string">'https://jsonplaceholder.typicode.com/users'</span><span>)</span><span>
+</span><span>         </span><span>.</span><span class="cm-property">then</span><span>(</span><span> </span><span>(</span><span class="cm-def">res</span><span>)</span><span> </span><span class="cm-operator">=></span><span> </span><span>
+</span><span>         </span><span>{</span><span> </span><span class="cm-keyword">let</span><span> </span><span class="cm-def">users</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable-2">res</span><span>.</span><span class="cm-property">data</span><span>.</span><span class="cm-property">map</span><span>(</span><span class="cm-def">user</span><span> </span><span class="cm-operator">=></span><span> </span><span class="cm-variable-2">user</span><span>.</span><span class="cm-property">id</span><span>)</span><span>
+</span><span>            </span><span class="cm-comment">//if response successful proceed to success  </span><span>
+</span><span>           </span><span class="cm-variable-2">dispatch</span><span>(</span><span class="cm-variable">fetchUserSuccess</span><span>(</span><span class="cm-variable-2">users</span><span>)</span><span>)</span><span>}</span><span>
+</span><span>         </span><span>)</span><span>
+</span><span>         </span><span>.</span><span class="cm-property">catch</span><span>(</span><span>(</span><span class="cm-def">err</span><span>)</span><span> </span><span class="cm-operator">=></span><span> </span><span>
+</span><span>            </span><span class="cm-comment">//if error proceed to failure    </span><span>
+</span><span>        </span><span class="cm-variable-2">dispatch</span><span>(</span><span class="cm-variable">fetchUserFailure</span><span>(</span><span class="cm-variable-2">err</span><span>.</span><span class="cm-property">message</span><span>)</span><span>)</span><span>)</span><span>
+</span><span>    </span><span>}</span><span>
+</span><span>}</span><span>
+</span><span class="cm-comment">//use thunk middleware</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">store</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">createStore</span><span>(</span><span class="cm-variable">reducers</span><span>,</span><span class="cm-variable">applyMiddleWare</span><span>(</span><span class="cm-variable">thunkMiddleWare</span><span>)</span><span>)</span><span>;</span><span>
+</span><span class="cm-keyword">const</span><span> </span><span class="cm-def">unsubscribe</span><span> </span><span class="cm-operator">=</span><span> </span><span class="cm-variable">store</span><span>.</span><span class="cm-property">subscribe</span><span>(</span><span>(</span><span>)</span><span class="cm-operator">=></span><span> </span><span>{</span><span> </span><span class="cm-variable">console</span><span>.</span><span class="cm-property">log</span><span>(</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">getState</span><span>(</span><span>)</span><span>)</span><span>}</span><span>)</span><span>
+</span><span class="cm-comment">//start the fetch user process</span><span>
+</span><span class="cm-variable">store</span><span>.</span><span class="cm-property">dispatch</span><span>(</span><span class="cm-variable">fetchUsers</span><span>(</span><span>)</span><span>)</span><span>
+</span><span>
+</span></code></pre>
+<h3>// Output</h3>
+<pre class="cm-s-material-darker CodeMirror"><code>PS D:\ReactProjects\redux-demo> node async
+{ loading: true, users: [], errors: '' }
+{
+  loading: false,
+  users: [
+    1, 2, 3, 4,  5,
+    6, 7, 8, 9, 10
+  ],
+  errors: ''
+}
+PS D:\ReactProjects\redux-demo> node async
+{ loading: true, users: [], errors: '' }
+{
+  loading: false,
+  users: [],
+  errors: 'getaddrinfo ENOTFOUND jsonplaceholder.typicode.cm'
+}
+</code></pre>
+</body>
+</html>
